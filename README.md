@@ -3,7 +3,7 @@
 
 
 # Programming Assignment #1
-![assignment1](https://github.com/kbckbc/washu_fl22_cse514/blob/main/linear_regression/Programming%20Assignment%201.pdf)
+[assignment1 pdf](https://github.com/kbckbc/washu_fl22_cse514/blob/main/linear_regression/Programming%20Assignment%201.pdf)
 
 
 + In this project, I will find a linear function on some data sets using Linear regression methodology and gradient descent algorithm for optimization. Linear regression is a statistical technique that models the linear relationship between a dependent variable y and one or more independent variables x. The gradient descent refers to changes in the model moving along the slope or slope of the graph toward the lowest possible error value. 
