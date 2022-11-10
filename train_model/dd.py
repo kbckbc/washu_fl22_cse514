@@ -7,10 +7,8 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 # for cross-validation
 from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import StratifiedKFold
 # for classifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
@@ -29,7 +27,6 @@ def takeAccu(elem):
 # problem: what to classfy
 # dimension_reduction: 'Y' yes, 'No' no
 def analyze(data, model_type, problem, dimension_reduction = 'N'):
-    
 
     for p in problem:
         # separate data into paramters(x) and a value(y)
@@ -137,6 +134,7 @@ def analyze(data, model_type, problem, dimension_reduction = 'N'):
                     plt.xlabel('Numerical hyper: k(C, Regularization parameter)')
                 plt.show()
 
+
 # reduce dimension on the input x, y
 # model_type: 'kNN', 'RandomForest', 'DecisionTree', 'SVM'
 # x,y: input data
@@ -164,6 +162,7 @@ def greedyBackward(model_type, x, y, howmany = 4):
 
     return reduced_x
 
+
 def usage(exec_name):
     print('Usage:')
     print('\tpython %s [arg1] [arg2] [arg3] [arg4]' % (exec_name))
@@ -178,6 +177,7 @@ def usage(exec_name):
     print('\tpython %s test.data DecisionTree 3 N' % (exec_name))
     print('\tpython %s test.data SVM 4 Y' % (exec_name))
     exit()
+
 
 # check arguments and return arguments
 def checkarg(argv):
@@ -229,100 +229,3 @@ if __name__ == '__main__':
     print('\t Loaded data: {}\n'.format(data.shape))
     
     analyze(data, model_type, problem, reduction)
-
-
-
-
-
-def reduce_analyze(data, model_type, problem):
-    for p in problem:
-        print('Classification problem: {}'.format(p))
-
-        # separate data into paramters(x) and a value(y)
-        df = data.loc[data[0].isin(p)]
-
-        x=df.iloc[:,1:]
-        y=df.iloc[:,0]
-        print('x shape: {}'.format(x.shape))
-        print('y shape: {}'.format(y.shape))
-
-        model = RandomForestClassifier(max_depth=8)
-        model.fit(x,y)
-        print('reduction1', model.score(x,y))
-
-        sfs = SequentialFeatureSelector(model, direction='backward', n_features_to_select=4, cv = 5)
-        z = sfs.fit_transform(x,y)
-
-        print('x shape: {}'.format(x.shape))
-        print('y shape: {}'.format(y.shape))
-        print('x {}'.format(x))
-        print('z {}'.format(z))
-        print('z {}'.format(sfs.get_feature_names_out()))
-
-
-        # # print('after', sfs.she)
-        model2 = RandomForestClassifier(max_depth=8)
-        model2.fit(z,y)
-        print('reduction2', model2.score(z,y))
-
-# my implement Greedy Backward Selection
-def myGreedyBack(data):
-    # separate data into paramters(x) and a value(y)
-    # df = data.loc[data[0].isin(['A'])]
-    df = data
-    x=df.iloc[:,1:]
-    y=df.iloc[:,0]
-
-    # print(x.columns)
-
-    # X_train,X_test,y_train,y_test=train_test_split(x,y,test_size=0.1)   
-
-
-    # model = KNeighborsClassifier(n_neighbors=1)
-    # score = cross_val_score(model, X_train, y_train, cv=5)
-    # print('score {}'.format(score))
-
-    if False: 
-        print('df\n{}'.format(df))
-        print('x shape: {}'.format(x.shape))
-        print('x\n{}'.format(x))
-        print('y shape: {}'.format(y.shape))
-        print('y\n{}'.format(y))
-
-    while len(x.columns) > 4:
-        print(len(x.columns))
-
-        # model = KNeighborsClassifier(n_neighbors=3)
-        # score = cross_val_score(model, x, y, cv=5).mean()
-
-        scores = []
-        for i in x.columns:
-            xx = x.copy()
-            xx.pop(i)
-            # print('xx {}'.format(xx))
-            model = KNeighborsClassifier(n_neighbors=1)
-            score = cross_val_score(model, xx, y, cv=5)
-            print('cross-valdiation: w/o i {}, score {}'.format(i, score.mean()))
-            scores.append((i, score.mean()))    
-
-        scores.sort(key=takeAccu, reverse=True)
-        # print('aa:{}'.format(scores))
-        pick = scores[0][0]
-        x.pop(pick)
-
-    print('x {}'.format(x))
-
-        
-    # xx = df.iloc[:,1:]
-    # xx.pop(1)
-    # print('xx\n{}'.format(xx))
-    # print('xx\n{}'.format(x))
-    # X_train,X_test,y_train,y_test=train_test_split(x,y,test_size=0.1)   
-    # model = KNeighborsClassifier(n_neighbors=1)
-    # model.fit(X_train, y_train)
-    # print(model.score(X_test, y_test))
-
-
-
-
-
