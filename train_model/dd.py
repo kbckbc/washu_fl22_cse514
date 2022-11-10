@@ -70,7 +70,7 @@ def analyze(data, model_type, problem, dimension_reduction = 'N'):
             hyper_score = []
             k_range = range(1, 11)
             if model_type == 'SVM':
-                k_range = [0.001, 0.01, 0.02, 0.03, 0.05, 0.1, 0.5, 1, 5, 10]
+                k_range = [0.001, 0.005, 0.01, 0.05, 0.01, 0.5, 1, 3, 5, 10]
 
             ###################################
             # cross validation to find proper hyper parameter
@@ -122,16 +122,16 @@ def analyze(data, model_type, problem, dimension_reduction = 'N'):
             ###################################
             if True:
                 plt.plot(k_range, k_scores)                    
-                plt.title('{} {} - Reduced: {}, Categorical hyper: {}'.format(p, model_type, dimension_reduction, category))
+                plt.title('{} {} - Category param: {}, Reduced: {}'.format(p, model_type, dimension_reduction, category))
                 plt.ylabel('Cross-Validated Accuracy')
                 if model_type == 'kNN':
-                    plt.xlabel('Numerical hyper: k(how many neighbors)')
+                    plt.xlabel('Number param: k(how many neighbors)')
                 elif model_type == 'RandomForest':
-                    plt.xlabel('Numerical hyper: k(max depth)')
+                    plt.xlabel('Number param: k(max depth)')
                 elif model_type == 'DecisionTree':
-                    plt.xlabel('Numerical hyper: k(max depth)')
+                    plt.xlabel('Number param: k(max depth)')
                 elif model_type == 'SVM':
-                    plt.xlabel('Numerical hyper: k(C, Regularization parameter)')
+                    plt.xlabel('Number param: k(C, Regularization parameter)')
                 plt.show()
 
 
