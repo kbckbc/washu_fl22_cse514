@@ -36,10 +36,6 @@ def analyze(data, model_type, problem, dimension_reduction = 'N'):
         print('Classification problem: {}'.format(p))
         print('\tPicked data: x {}, y {}\n'.format(x.shape, y.shape))
 
-        # for test
-        if False:
-            x=df.iloc[:100,1:]
-            y=df.iloc[:100,0]
 
         ###################################
         # dimension reduction
@@ -62,7 +58,7 @@ def analyze(data, model_type, problem, dimension_reduction = 'N'):
         elif model_type == 'DecisionTree':
             categories = ['gini','entropy','log_loss']
         elif model_type == 'SVM':
-            categories = ['rbf']
+            categories = ['linear','poly','rbf']
 
 
         for category in categories:
@@ -89,7 +85,7 @@ def analyze(data, model_type, problem, dimension_reduction = 'N'):
                 scores = cross_val_score(model, X_train, y_train, cv=5)
                 k_scores.append(scores.mean())
                 if True:
-                    print('Testing: cross-vali, model: {}, category haper: {}, number hyper: {}, score: {}'.format(model_type, category, k, scores.mean()))
+                    print('Testing: cross-vali, model: {}, category param: {}, number param: {}, score: {}'.format(model_type, category, k, scores.mean()))
 
                 hyper_score.append((k, scores.mean()))
 
@@ -115,14 +111,14 @@ def analyze(data, model_type, problem, dimension_reduction = 'N'):
             model.fit(X_train, y_train)            
             finalScore = model.score(X_test, y_test)
             end = time.time()
-            print('Result : final-vali, model: {}, category hyper: {}, number hyper: {}, score: {}, time: {gap:.4f}\n'.format(model_type, category, bestHyper, finalScore, gap = (end - start)))
+            print('Result : final-vali, model: {}, category param: {}, number param: {}, score: {}, time: {gap:.4f}\n'.format(model_type, category, bestHyper, finalScore, gap = (end - start)))
 
             ###################################
             # show plot to see clearly
             ###################################
             if True:
                 plt.plot(k_range, k_scores)                    
-                plt.title('{} {} - Category param: {}, Reduced: {}'.format(p, model_type, dimension_reduction, category))
+                plt.title('{} {} - Category param: {}, Reduced: {}'.format(p, model_type, category, dimension_reduction))
                 plt.ylabel('Cross-Validated Accuracy')
                 if model_type == 'kNN':
                     plt.xlabel('Number param: k(how many neighbors)')
@@ -146,7 +142,7 @@ def greedyBackward(model_type, x, y, howmany = 4):
     if model_type == 'kNN':
         model = KNeighborsClassifier()
     elif model_type == 'RandomForest':
-        model = RandomForestClassifier(max_depth=8)
+        model = RandomForestClassifier(max_depth=5)
     elif model_type == 'DecisionTree':
         model = DecisionTreeClassifier(max_depth=8)
     elif model_type == 'SVM':
