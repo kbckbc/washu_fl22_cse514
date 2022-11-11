@@ -10,7 +10,7 @@
 + The data set is about the strength of concrete when concrete is mixed up with several ingredients. In the data set, 8 feature values affect the strength of concrete. 
 + More specifically, I’m going to build a program to figure out the proper linear model by adopting Uni-variate and Multi-variate regression. Uni-variate linear regression is y = mx + b and multi-variate is y = b0 + m1*x1 + m2*x2 + .. + mn*xn. And I will use MSE(Mean Squared Error) as a loss function. The program can use one feature from the data set or all 8 features to find a linear function. It can be done by designating parameters.
 
-## how to run
+## How to run
 ```
 
 python gg.py
@@ -41,6 +41,10 @@ Example:
         python gg.py Concrete_Data.xls test mae nopre plot
 ```
 
+## Some images of the result
+
+![pic](https://github.com/kbckbc/washu_fl22_cse514/blob/main/linear_regression/cement.png)
+![pic](https://github.com/kbckbc/washu_fl22_cse514/blob/main/linear_regression/coarse.png)
 
 ## Lesson learned
 + First column, Cement, was the best compared to other columns in accuracy. And the third one, Fly Ash, was the worst compared to the other columns. Because Cement data points had a tendency like a linear line, it seemed it had no outlier data. On the other hand, Fly ash seemed to have a lot of outliers (which was zero value). It was hard to find a proper linear line with such data. I think that the more data that is out of tendency, the less accurate it is.
@@ -56,7 +60,7 @@ Example:
 
 + In this project, I will use several models to classify alphabet images into actual characters and verify whether similar results can be obtained through dimensionality reduction. I will evaluate which model is better based on the alphabet recognition performance and time taken. If this project is successful, it can be used for automatic text conversion of images, and furthermore, it can be used for general-purpose character recognition programs.
 
-## how to run
+## How to run
 ```
 Usage:
         python dd.py [arg1] [arg2] [arg3] [arg4]
@@ -72,6 +76,14 @@ Example:
         python dd.py test.data SVM 4 Y
 
 ```
+
+## Some images of the result
+
+![knn](https://github.com/kbckbc/washu_fl22_cse514/blob/main/train_model/knn.png)
+![rf](https://github.com/kbckbc/washu_fl22_cse514/blob/main/train_model/rf.png)
+![dt](https://github.com/kbckbc/washu_fl22_cse514/blob/main/train_model/dt.png)
+![svm](https://github.com/kbckbc/washu_fl22_cse514/blob/main/train_model/svm.png)
+
 
 ## Lesson learned
 + For binary classification problems, I would choose Decision Tree. Because the accuracy and speed were superior to other models. For some problems, Random Forest and SVM showed better accuracy, but the difference was negligible. However, in terms of speed, Decision Tree showed much faster speed than other models. Comprehensively, in binary classification, Decision Tree showed the best performance.
